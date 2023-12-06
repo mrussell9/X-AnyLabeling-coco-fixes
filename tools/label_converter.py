@@ -408,7 +408,6 @@ class RectLabelConverter(BaseLabelConverter):
 class PolyLabelConvert(BaseLabelConverter):
     def mask2box(self, mask):
         index = np.argwhere(mask == 1)
-        print(index)
         cols = index[:, 0]
         rows = index[:, 1]
 
@@ -433,7 +432,7 @@ class PolyLabelConvert(BaseLabelConverter):
         # ImageDraw.Draw(mask).polygon(xy=xy, outline=1, fill=1)
         mask = np.array(mask, dtype=bool)
         for point in xy:
-            mask[int(point[0]), int(point[1])] = 1
+            mask[int(point[1]), int(point[2])] = 1
         return mask
 
     def custom_to_coco(self, input_path, output_path):
