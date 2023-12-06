@@ -432,7 +432,7 @@ class PolyLabelConvert(BaseLabelConverter):
         # ImageDraw.Draw(mask).polygon(xy=xy, outline=1, fill=1)
         mask = np.array(mask, dtype=bool)
         for point in xy:
-            mask[int(point[1]), int(point[2])] = 1
+            mask[int(point[1]), int(point[0])] = 1
         return mask
 
     def custom_to_coco(self, input_path, output_path):
@@ -454,9 +454,10 @@ class PolyLabelConvert(BaseLabelConverter):
                 continue
             image_id += 1
             input_file = osp.join(input_path, file_name)
+            print(input_file)
             with open(input_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
-
+            # print(data)
             image_path = data["imagePath"]
             image_name = osp.splitext(osp.basename(image_path))[0]
             coco_data["images"].append(
