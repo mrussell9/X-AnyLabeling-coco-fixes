@@ -454,10 +454,9 @@ class PolyLabelConvert(BaseLabelConverter):
                 continue
             image_id += 1
             input_file = osp.join(input_path, file_name)
-            print(input_file)
             with open(input_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
-            # print(data)
+
             image_path = data["imagePath"]
             image_name = osp.splitext(osp.basename(image_path))[0]
             coco_data["images"].append(
@@ -494,12 +493,12 @@ class PolyLabelConvert(BaseLabelConverter):
                 }
 
                 coco_data["annotations"].append(annotation)
-        out_file_name = str(image_name) + ".json"
-        output_file = osp.join(output_path, out_file_name)
-        with open(output_file, "w", encoding="utf-8") as f:
-            json.dump(
-                coco_data, f, indent=4, ensure_ascii=False, cls=JsonEncoder
-            )
+            out_file_name = str(image_name) + ".json"
+            output_file = osp.join(output_path, out_file_name)
+            with open(output_file, "w", encoding="utf-8") as f:
+                json.dump(
+                    coco_data, f, indent=4, ensure_ascii=False, cls=JsonEncoder
+                )
 
     def custom_to_yolov5(self, input_file, output_file):
         with open(input_file, "r", encoding="utf-8") as f:

@@ -38,7 +38,7 @@ def main():
         choices=["debug", "info", "warning", "fatal", "error"],
         help="logger level",
     )
-    parser.add_argument("filename", nargs="?", help="image or label filename")
+    parser.add_argument("--filename", nargs="?", help="image or label filename")
     parser.add_argument(
         "--output",
         "-O",
