@@ -2289,6 +2289,7 @@ class LabelingWidget(LabelDialog):
         """
         items = self.unique_label_list.selectedItems()
         text = None
+        auto_label_flag = False
         if items:
             text = items[0].data(Qt.UserRole)
         flags = {}
@@ -2299,6 +2300,7 @@ class LabelingWidget(LabelDialog):
             AutoLabelingMode.REMOVE,
         ]:
             text = self.canvas.shapes[-1].label
+            auto_label_flag = True
         elif (
             self._config["display_label_popup"]
             or not text
@@ -2313,7 +2315,7 @@ class LabelingWidget(LabelDialog):
                 if not text:
                     self.label_dialog.edit.setText(previous_text)
 
-        if text and not self.validate_label(text):
+        if text and not self.validate_label(text) and not auto_label_flag:
             self.error_message(
                 self.tr("Invalid label"),
                 self.tr("Invalid label '{}' with validation type '{}'").format(
